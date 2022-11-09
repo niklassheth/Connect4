@@ -1,4 +1,4 @@
-package org.hypergolic;
+    package org.hypergolic;
 
 import io.quarkus.test.junit.QuarkusIntegrationTest;
 
