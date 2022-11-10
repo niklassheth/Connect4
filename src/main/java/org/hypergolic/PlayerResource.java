@@ -21,6 +21,10 @@ public class PlayerResource {
     @Consumes(MediaType.APPLICATION_JSON)
     public Uni<RestResponse<Player>> addPlayer(Player p) {
         return Panache.<Player>withTransaction(p::persist)
-                .map(player -> (ResponseBuilder.<Player>created(URI.create("/player/"+player.id)).entity(p).build()));
+                .map(player -> (ResponseBuilder.<Player>created(URI.create("/player/" + player.id))
+                                .entity(p)
+                                .build()
+                        )
+                );
     }
 }
