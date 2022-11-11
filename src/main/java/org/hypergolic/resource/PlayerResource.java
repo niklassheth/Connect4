@@ -1,7 +1,8 @@
-package org.hypergolic;
+package org.hypergolic.resource;
 
 import io.quarkus.hibernate.reactive.panache.Panache;
 import io.smallrye.mutiny.Uni;
+import org.hypergolic.model.Player;
 import org.jboss.resteasy.reactive.RestResponse;
 import org.jboss.resteasy.reactive.RestResponse.ResponseBuilder;
 

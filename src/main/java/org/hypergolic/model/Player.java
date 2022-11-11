@@ -1,4 +1,4 @@
-package org.hypergolic;
+package org.hypergolic.model;
 
 import io.quarkus.hibernate.reactive.panache.PanacheEntity;
 

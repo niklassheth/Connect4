@@ -1,6 +1,7 @@
-package org.hypergolic;
+package org.hypergolic.resource;
 
 import io.smallrye.mutiny.Uni;
+import org.hypergolic.model.Player;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
