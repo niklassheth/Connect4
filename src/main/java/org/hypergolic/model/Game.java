@@ -1,17 +1,21 @@
 package org.hypergolic.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.quarkus.hibernate.reactive.panache.PanacheEntity;
-import io.quarkus.hibernate.reactive.panache.PanacheQuery;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Entity
 public class Game extends PanacheEntity {
 
-    @OneToMany (mappedBy="game")
-    public Set<Player_Game> playerSet;
+    @OneToMany (cascade = CascadeType.ALL, mappedBy = "game")
+    @JsonIgnore
+    public Set<GameConnection> connectionSet;
+
+    @OneToMany (cascade = CascadeType.ALL, mappedBy = "game")
+    public Set<Move> moves;
 
 }

@@ -1,5 +1,6 @@
 package org.hypergolic.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.quarkus.hibernate.reactive.panache.PanacheEntity;
 
 import javax.persistence.Entity;
@@ -11,7 +12,8 @@ public class Player extends PanacheEntity {
     public String name;
 
     @OneToMany(mappedBy = "player")
-    public Set<Player_Game> gameSet;
+    @JsonIgnore
+    public Set<GameConnection> connectionSet;
 
 
 }
