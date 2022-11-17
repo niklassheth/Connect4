@@ -1,0 +1,15 @@
+:root {
+    --board-gaps: 10px;
+    --chip-size: 100px;
+}
+.Board {
+    background-color: blue;
+    display: inline-grid;
+    grid-template-columns: repeat(var(--board-cols), var(--chip-size));
+    grid-template-rows: 1, var(--chip-size);
+    grid-gap: var(--board-gaps);
+    padding: 15px;
+    
+    /*here because the chips dont seem to fit*/
+    padding-right: 17px;
+}

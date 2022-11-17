@@ -1,0 +1,9 @@
+.Column {
+    display: inline-grid;
+    grid-template-columns: 1;
+    grid-template-rows: repeat(var(--board-rows), var(--chip-size));
+    grid-gap: var(--board-gaps);
+
+    /*here because the chips dont seem to fit*/
+    padding-bottom: 2px;
+}
