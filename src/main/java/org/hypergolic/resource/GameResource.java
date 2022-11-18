@@ -4,6 +4,8 @@ import io.quarkus.hibernate.reactive.panache.Panache;
 import io.smallrye.mutiny.Uni;
 import org.hibernate.reactive.mutiny.Mutiny;
 import org.hypergolic.model.Game;
+import org.hypergolic.model.Move;
+import org.hypergolic.model.Player;
 import org.jboss.resteasy.reactive.RestResponse;
 import org.jboss.resteasy.reactive.RestResponse.ResponseBuilder;
 
@@ -17,10 +19,35 @@ public class GameResource {
     @GET
     @Path("{id: \\d+}")
     public Uni<Game> getGameByID(@PathParam("id") long id) {
+        return Game.<Game>findById(id);
+    }
+    private void validateNewMove(Game g, Move m) {
+        if (m.columnNumber < 0 || m.columnNumber > 6)
+            throw new BadRequestException("Column Number must be in [0..6]");
+        if (g.moves.size() == 0) {
+            if (m.moveNumber != 0) {
+                throw new BadRequestException("Move Number starts at 0");
+            }
+        }
+        else {
+            Move lastMove = g.moves.get(g.moves.size() - 1);
+            if (m.moveNumber - lastMove.moveNumber != 1) {
+                throw new BadRequestException("Moves must be sequential");
+            }
+        }
+    }
+    @POST
+    @Path("{id: \\d+}/move")
+    public Uni<RestResponse<Move>> makeMove(@PathParam("id") long id, Move move) {
         return Game.<Game>findById(id)
-            .onItem()
-            .ifNotNull()
-            .call(x -> Mutiny.fetch(x.moves));
+                .invoke(g -> validateNewMove(g, move))
+                .flatMap(g -> {
+                    move.game = g;
+                    return Panache.<Move>withTransaction(move::persist);
+                })
+                .map(m -> ResponseBuilder.<Move>created(URI.create("/game/" + id + "/move"))
+                        .entity(m)
+                        .build());
     }
 
     @POST
