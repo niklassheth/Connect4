@@ -3,10 +3,10 @@ package org.hypergolic.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.quarkus.hibernate.reactive.panache.PanacheEntity;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
+import java.util.SortedSet;
 
 @Entity
 public class Game extends PanacheEntity {
@@ -15,7 +15,8 @@ public class Game extends PanacheEntity {
     @JsonIgnore
     public Set<GameConnection> connectionSet;
 
-    @OneToMany (cascade = CascadeType.ALL, mappedBy = "game")
-    public Set<Move> moves;
+    @OneToMany (fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "game")
+    @OrderBy("moveNumber ASC")
+    public List<Move> moves;
 
 }
