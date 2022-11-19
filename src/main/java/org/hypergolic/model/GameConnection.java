@@ -16,6 +16,6 @@ public class GameConnection extends PanacheEntity {
     @ManyToOne()
     public Game game;
 
-    public int order;
+    public int moveOrder;
 
 }
