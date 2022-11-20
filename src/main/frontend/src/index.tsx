@@ -4,6 +4,19 @@ import Connect4 from './components/Connect4/Connect4';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
+
+const address = "ws:localhost:8080/connection/1";
+const client = new WebSocket(address);
+
+client.onopen = () => {
+    console.log("Connected :)");
+    client.send("HI!");
+}
+
+client.onmessage = ev => {
+    
+}
+
 root.render(
   <React.StrictMode>
     <Connect4/>

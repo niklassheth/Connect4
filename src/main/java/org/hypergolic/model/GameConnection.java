@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "GameConnection", uniqueConstraints = {
-        @UniqueConstraint(name = "uc_connection_order", columnNames = {"order", "game_id"})
+        @UniqueConstraint(name = "uc_connection_order", columnNames = {"moveOrder", "game_id"})
 })
 public class GameConnection extends PanacheEntity {
 
