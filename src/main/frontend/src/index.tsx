@@ -22,7 +22,7 @@ const fn = moveData => {
 
 root.render(
   <React.StrictMode>
-    <Connect4 moveHandler={fn} client={client}/>
+    <Connect4/>
   </React.StrictMode>
 );
 
