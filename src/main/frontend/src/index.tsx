@@ -5,7 +5,9 @@ import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
-const address = "ws:localhost:8080/connection/1";
+const id = prompt("Enter your id")
+
+const address = "ws:localhost:8080/connection/"+ id;
 const client = new WebSocket(address);
 
 client.onopen = () => {
@@ -13,13 +15,14 @@ client.onopen = () => {
     client.send("HI!");
 }
 
-client.onmessage = ev => {
-    
-}
+const fn = moveData => {
+    console.log(moveData);
+    client.send(JSON.stringify(moveData));
+};
 
 root.render(
   <React.StrictMode>
-    <Connect4/>
+    <Connect4 moveHandler={fn} client={client}/>
   </React.StrictMode>
 );
 

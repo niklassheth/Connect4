@@ -22,11 +22,27 @@ function genCols(cols: number, rows: number, handler: Function, game: string[][]
   return board;
 }
 
-function Connect4() {
+type C4Props = {
+  moveHandler: Function,
+  client: WebSocket,
+};
+
+function Connect4(props: C4Props) {
   let cols = 7, rows = 6, defColor = 'white';
 
   let [ game, setGame ] = useState((Array(cols).fill('').map(() => Array(rows).fill(defColor))) as string[][]);
   let [ player, setPlayer ] = useState(false);
+
+  props.client.onmessage = ev => {
+    let data = JSON.parse(ev.data);
+    console.log(data);
+    let chosenCol = data.columnNumber;
+    setPlayer(data.moveNumber % 2 == 1);
+    let changedGame = [...game];
+    let chipIndex = findLastIndex<string>(changedGame[chosenCol], defColor);
+    changedGame[chosenCol][chipIndex] = data.moveNumber % 2 == 1 ? 'yellow' : 'red';
+    setGame(changedGame);
+  }
 
   function handlePlaced(tar: EventTarget & Element) {
     let [ ...changedGame ] = game;
@@ -36,7 +52,8 @@ function Connect4() {
     if (chipIndex === -1) {
       return;
     }
-
+    const moveCount = game.map(col => col.filter(chip => chip === "red" || chip === "yellow").length).reduce((x, y) => x + y, 0);
+    props.moveHandler({moveNumber: moveCount, columnNumber: chosenCol});
     changedGame[chosenCol][chipIndex] = player ? 'yellow' : 'red';
     setGame(changedGame);
     setPlayer(!player);
