@@ -1,10 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import Connect4 from './components/Connect4/Connect4';
+import Connect4Multiplayer from "./components/Connect4Multiplayer/Connect4Multiplayer";
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
+/*
 const id = prompt("Enter your id")
 
 const address = "ws:localhost:8080/connection/"+ id;
@@ -19,10 +20,11 @@ const fn = moveData => {
     console.log(moveData);
     client.send(JSON.stringify(moveData));
 };
+*/
 
 root.render(
   <React.StrictMode>
-    <Connect4/>
+    <Connect4Multiplayer/>
   </React.StrictMode>
 );
 
