@@ -6,7 +6,7 @@ import type { Move } from "../Connect4/Connect4";
 const Connect4Multiplayer = () => {
     const [moves, setMoves] = useState<Move[]>([]);
 
-    const handleMove = (move: Move): void => setMoves(xs => [...xs, move]);
+    const handleMove = (move: Move): void => setMoves([...moves, move]);
 
     return <Connect4 moves={moves} initialColor={"red"} clickHandler={handleMove}></Connect4>
 }

@@ -23,7 +23,7 @@ const rows = 6;
 
 
 // prepare the board columns here to avoid prop drilling
-function genCols(cols: number, rows: number, handler: Function, game: string[][]) {
+function genCols(cols: number, rows: number, handler: Function, game: ChipState[][]) {
   let board: JSX.Element[] = [];
   for (let i = 0; i < cols; ++i) {
     board.push(<Column key={`c${i}`} col={i} rows={rows} handlePlaced={handler} game={game}></Column>);
