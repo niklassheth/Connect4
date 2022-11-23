@@ -43,7 +43,10 @@ function drawBoard(moves: Move[], initialColor: Color) : ChipState[][] {
 function Connect4(props: Connect4Props) {
 
   function handlePlaced(tar: EventTarget & Element) {
-    props.clickHandler({moveNumber: props.moves.length, columnNumber: parseInt(tar.getAttribute('data-col'))});
+    const col = parseInt(tar.getAttribute('data-col'));
+    if (props.moves.filter(m => m.columnNumber == col).length >= 6)
+        return;
+    props.clickHandler({moveNumber: props.moves.length, columnNumber: col});
   }
 
   // provide the board columns to the Board; Composition vs. Inheritance or something
