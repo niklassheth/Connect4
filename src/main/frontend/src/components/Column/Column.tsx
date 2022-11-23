@@ -1,5 +1,5 @@
 import './Column.css';
-import {PropsWithChildren, SyntheticEvent} from 'react';
+import {memo, PropsWithChildren, SyntheticEvent} from 'react';
 
 type ColumnProps = {
     col: number,
@@ -15,4 +15,4 @@ function Column(props: PropsWithChildren<ColumnProps>) {
     return <section className="Column" data-col={props.col} onClick={handlePlaced}>{props.children}</section>;
 }
 
-export default Column;
+export default memo(Column);
