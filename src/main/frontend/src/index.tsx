@@ -1,30 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import Connect4Multiplayer from "./components/Connect4Multiplayer/Connect4Multiplayer";
+import Connect4 from "./components/Connect4/Connect4";
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
-/*
-const id = prompt("Enter your id")
-
-const address = "ws:localhost:8080/connection/"+ id;
-const client = new WebSocket(address);
-
-client.onopen = () => {
-    console.log("Connected :)");
-    client.send("HI!");
-}
-
-const fn = moveData => {
-    console.log(moveData);
-    client.send(JSON.stringify(moveData));
-};
-*/
-
 root.render(
   <React.StrictMode>
-    <Connect4Multiplayer/>
+    <Connect4/>
   </React.StrictMode>
 );
 
