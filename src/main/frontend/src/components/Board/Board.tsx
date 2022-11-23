@@ -1,5 +1,6 @@
 import './Board.css';
 import Column from "../Column/Column";
+import Chip from "../Chip/Chip";
 
 type Color = "red" | "yellow";
 
@@ -21,14 +22,6 @@ type BoardProps = {
 const cols = 7;
 const rows = 6;
 
-function genCols(cols: number, rows: number, handler: Function, game: ChipState[][]) {
-    let board: JSX.Element[] = [];
-    for (let i = 0; i < cols; ++i) {
-        board.push(<Column key={`c${i}`} col={i} rows={rows} handlePlaced={handler} game={game}></Column>);
-    }
-    return board;
-}
-
 function drawBoard(moves: Move[], initialColor: Color) : ChipState[][] {
     let board: ChipState[][] = (Array(cols).fill('').map(() => Array(rows).fill("white")));
     const colors: Color[] = [initialColor, initialColor == "red" ? "yellow" : "red"];
@@ -48,7 +41,13 @@ function Board(props: BoardProps) {
 
     return (
         <main className="Board" data-s={props.cols*props.rows} data-w={props.cols} data-h={props.rows}>
-        {genCols(cols, rows, handlePlaced, drawBoard(props.moves, props.initialColor))}
+            {drawBoard(props.moves, props.initialColor).map((column, i) =>
+                <Column col={i} handlePlaced={handlePlaced}>
+                    {column.map((chip, j) =>
+                        <Chip row={j} color={chip}/>
+                    )}
+                </Column>)
+            }
         </main>
     );
 }
