@@ -9,7 +9,7 @@ function Connect4() {
 
   const handleMove = (move: Move): void => setMoves([...moves, move]);
 
-  return <Board cols={6} rows={7} moves={moves} initialColor={"red"} clickHandler={handleMove}></Board>
+  return <Board cols={7} rows={6} moves={moves} initialColor={"red"} clickHandler={handleMove}></Board>
 }
 
 export default Connect4;

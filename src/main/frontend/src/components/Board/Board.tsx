@@ -21,7 +21,7 @@ type BoardProps = {
 function Board(props: BoardProps) {
     function drawBoard(moves: Move[], initialColor: Color) : ChipState[][] {
         let board: ChipState[][] = Array(props.cols).fill('').map(() => Array(props.rows).fill("white"));
-        const colors: Color[] = [initialColor, initialColor == "red" ? "yellow" : "red"];
+        const colors: Color[] = [initialColor, initialColor === "red" ? "yellow" : "red"];
         moves.forEach(move => {
             let col = board[move.col];
             col[col.lastIndexOf('white')] = colors[move.num % 2];
@@ -31,7 +31,7 @@ function Board(props: BoardProps) {
 
     function handlePlaced(tar: EventTarget & Element) {
         const col = parseInt(tar.getAttribute('data-col'));
-        if (props.moves.filter(m => m.col == col).length >= 6)
+        if (props.moves.filter(m => m.col === col).length >= 6)
             return;
         props.clickHandler({num: props.moves.length, col: col});
     }
@@ -39,8 +39,8 @@ function Board(props: BoardProps) {
     return (
         <main className="Board" data-s={props.cols*props.rows} data-w={props.cols} data-h={props.rows}>
             {drawBoard(props.moves, props.initialColor).map((column, i) =>
-                <Column col={i} handlePlaced={handlePlaced}>
-                    {column.map((chip, j) => <Chip row={j} color={chip}/>)}
+                <Column key={`c${i}`} col={i} handlePlaced={handlePlaced}>
+                    {column.map((chip, j) => <Chip key={`c${i}r${j}`}row={j} color={chip}/>)}
                 </Column>
             )}
         </main>
