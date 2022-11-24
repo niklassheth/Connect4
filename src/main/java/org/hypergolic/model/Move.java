@@ -13,12 +13,12 @@ public class Move extends PanacheEntity implements Comparable<Move> {
     @JsonIgnore
     public Game game;
 
-    public int moveNumber;
+    public int num;
 
-    public int columnNumber;
+    public int col;
 
     @Override
     public int compareTo(Move move) {
-        return Integer.compare(this.moveNumber, move.moveNumber);
+        return Integer.compare(this.num, move.num);
     }
 }
