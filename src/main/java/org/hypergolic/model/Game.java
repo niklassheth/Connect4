@@ -16,7 +16,7 @@ public class Game extends PanacheEntity {
     public Set<GameConnection> connectionSet;
 
     @OneToMany (fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "game")
-    @OrderBy("moveNumber ASC")
+    @OrderBy("num ASC")
     public List<Move> moves;
 
 }

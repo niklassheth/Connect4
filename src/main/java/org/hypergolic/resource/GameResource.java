@@ -2,10 +2,8 @@ package org.hypergolic.resource;
 
 import io.quarkus.hibernate.reactive.panache.Panache;
 import io.smallrye.mutiny.Uni;
-import org.hibernate.reactive.mutiny.Mutiny;
 import org.hypergolic.model.Game;
 import org.hypergolic.model.Move;
-import org.hypergolic.model.Player;
 import org.jboss.resteasy.reactive.RestResponse;
 import org.jboss.resteasy.reactive.RestResponse.ResponseBuilder;
 
@@ -22,16 +20,16 @@ public class GameResource {
         return Game.<Game>findById(id);
     }
     private void validateNewMove(Game g, Move m) {
-        if (m.columnNumber < 0 || m.columnNumber > 6)
+        if (m.col < 0 || m.col > 6)
             throw new BadRequestException("Column Number must be in [0..6]");
         if (g.moves.size() == 0) {
-            if (m.moveNumber != 0) {
+            if (m.num != 0) {
                 throw new BadRequestException("Move Number starts at 0");
             }
         }
         else {
             Move lastMove = g.moves.get(g.moves.size() - 1);
-            if (m.moveNumber - lastMove.moveNumber != 1) {
+            if (m.num - lastMove.num != 1) {
                 throw new BadRequestException("Moves must be sequential");
             }
         }
