@@ -1,7 +1,7 @@
 import './Chip.css';
 import {memo} from "react";
 type ChipProps = {
-    row: number,
+    row?: number,
     color?: string,
 }
 
