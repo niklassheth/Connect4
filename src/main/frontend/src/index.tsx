@@ -1,13 +1,31 @@
+import "./index.css";
+
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import Connect4 from "./components/Connect4/Connect4";
+import { 
+  createBrowserRouter,
+  createRoutesFromElements,
+  Route,
+  RouterProvider
+} from 'react-router-dom';
+
+import Landing from './components/Landing/Landing';
+import Connect4 from './components/Connect4/Connect4';
 import reportWebVitals from './reportWebVitals';
 
-const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    //this doesn't seem correct; Landing page should be the top Route but the children weren't rendering so...
+    <Route>
+      <Route path="/" element={<Landing />} />
+      <Route path="/local" element={<Connect4 />} />
+    </Route>
+  )
+);
 
-root.render(
+ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <Connect4/>
+    <RouterProvider router={router} />
   </React.StrictMode>
 );
 
