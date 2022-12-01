@@ -1,7 +1,7 @@
 import './Chip.css';
-
+import {memo} from "react";
 type ChipProps = {
-    row: number,
+    row?: number,
     color?: string,
 }
 
@@ -10,4 +10,4 @@ function Chip(props: ChipProps) {
     return <div className="Chip" data-row={props.row} style={s}></div>;
 }
 
-export default Chip;
+export default memo(Chip);

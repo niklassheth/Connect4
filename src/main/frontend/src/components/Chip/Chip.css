@@ -2,8 +2,5 @@
     width: var(--chip-size);
     height: var(--chip-size);
     border-radius: 50%;
-    border: 1px solid black;
-
-    display: inline;
-    overflow: hidden;
+    border: 0;
 }

@@ -1,13 +1,13 @@
 import './Board.css';
 import Column from "../Column/Column";
+import Chip from "../Chip/Chip";
 
 type Color = "red" | "yellow";
-
 type ChipState = Color | "white";
 
 type Move = {
-    moveNumber: number,
-    columnNumber: number,
+    num: number,
+    col: number,
 }
 
 type BoardProps = {
@@ -18,37 +18,31 @@ type BoardProps = {
     clickHandler: (move: Move) => void,
 }
 
-const cols = 7;
-const rows = 6;
-
-function genCols(cols: number, rows: number, handler: Function, game: ChipState[][]) {
-    let board: JSX.Element[] = [];
-    for (let i = 0; i < cols; ++i) {
-        board.push(<Column key={`c${i}`} col={i} rows={rows} handlePlaced={handler} game={game}></Column>);
-    }
-    return board;
-}
-
-function drawBoard(moves: Move[], initialColor: Color) : ChipState[][] {
-    let board: ChipState[][] = (Array(cols).fill('').map(() => Array(rows).fill("white")));
-    const colors: Color[] = [initialColor, initialColor == "red" ? "yellow" : "red"];
-    for (const move of moves) {
-        board[move.columnNumber][board[move.columnNumber].lastIndexOf("white")] = colors[move.moveNumber % 2];
-    }
-    return board;
-}
-
 function Board(props: BoardProps) {
+    function drawBoard(moves: Move[], initialColor: Color) : ChipState[][] {
+        let board: ChipState[][] = Array(props.cols).fill('').map(() => Array(props.rows).fill("white"));
+        const colors: Color[] = [initialColor, initialColor === "red" ? "yellow" : "red"];
+        moves.forEach(move => {
+            let col = board[move.col];
+            col[col.lastIndexOf('white')] = colors[move.num % 2];
+        });
+        return board;
+    }
+
     function handlePlaced(tar: EventTarget & Element) {
         const col = parseInt(tar.getAttribute('data-col'));
-        if (props.moves.filter(m => m.columnNumber == col).length >= 6)
+        if (props.moves.filter(m => m.col === col).length >= 6)
             return;
-        props.clickHandler({moveNumber: props.moves.length, columnNumber: col});
+        props.clickHandler({num: props.moves.length, col: col});
     }
 
     return (
         <main className="Board" data-s={props.cols*props.rows} data-w={props.cols} data-h={props.rows}>
-        {genCols(cols, rows, handlePlaced, drawBoard(props.moves, props.initialColor))}
+            {drawBoard(props.moves, props.initialColor).map((column, i) =>
+                <Column key={`c${i}`} col={i} handlePlaced={handlePlaced}>
+                    {column.map((chip, j) => <Chip key={`c${i}r${j}`} row={j} color={chip}/>)}
+                </Column>
+            )}
         </main>
     );
 }

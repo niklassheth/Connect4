@@ -20,7 +20,13 @@ function Connect4() {
     sendMessage(JSON.stringify(move));
   };
 
-  return <Board cols={6} rows={7} moves={moves} initialColor={"red"} clickHandler={handleMove}></Board>
+  return (
+    <div className="Connect4">
+      <p>Which players turn?</p>
+      <Board cols={7} rows={6} moves={moves} initialColor={"red"} clickHandler={handleMove}></Board>
+      <p>Each players wins?</p>
+    </div>
+  );
 }
 
 export default Connect4;
