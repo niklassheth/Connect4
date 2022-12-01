@@ -15,7 +15,10 @@ function Connect4() {
     }
   });
   const [moves, setMoves] = useState<Move[]>([]);
-  const handleMove = (move: Move): void => sendMessage(JSON.stringify(move));
+  const handleMove = (move: Move): void => {
+    console.log(move)
+    sendMessage(JSON.stringify(move));
+  };
 
   return <Board cols={6} rows={7} moves={moves} initialColor={"red"} clickHandler={handleMove}></Board>
 }
