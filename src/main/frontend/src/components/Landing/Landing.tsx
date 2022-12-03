@@ -11,7 +11,7 @@ function Landing() {
             <div className="home-buttons">
                 <Button>Solo</Button>
                 <Link to={"/local"}><Button>Local</Button></Link>
-                <Button>Lobby</Button>
+                <Link to={"/lobby"}><Button>Lobby</Button></Link>
             </div>
         </main>
     );

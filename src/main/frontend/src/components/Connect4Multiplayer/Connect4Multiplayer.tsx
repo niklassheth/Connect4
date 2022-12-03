@@ -1,11 +1,11 @@
-import './Connect4.css';
+import './Connect4Multiplayer.css';
 import Board from '../Board/Board';
 import {useEffect, useState} from "react";
 import useWebSocket, { ReadyState } from 'react-use-websocket';
 import type { Move } from '../Board/Board'
 import type WebSocketEventMap from 'react-use-websocket';
 
-function Connect4() {
+function Connect4Multiplayer() {
 
   const { sendMessage } = useWebSocket("ws://localhost:8080/connection/1", {
     onMessage: (event) => {
@@ -29,4 +29,4 @@ function Connect4() {
   );
 }
 
-export default Connect4;
+export default Connect4Multiplayer;

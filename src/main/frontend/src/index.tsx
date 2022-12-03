@@ -10,17 +10,20 @@ import {
 } from 'react-router-dom';
 
 import Landing from './components/Landing/Landing';
-import Connect4 from './components/Connect4/Connect4';
+import Connect4 from './components/Connect4Multiplayer/Connect4Multiplayer';
 import reportWebVitals from './reportWebVitals';
 import Connect4Local from "./components/Connect4Local/Connect4Local";
+import App from "./components/App/App";
+import Connect4Multiplayer from "./components/Connect4Multiplayer/Connect4Multiplayer";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    //this doesn't seem correct; Landing page should be the top Route but the children weren't rendering so...
-    <Route>
-      <Route path="/" element={<Landing />} />
-      <Route path="/local" element={<Connect4Local />} />
-    </Route>
+      <Route path="/" element={<App />}>
+          <Route index element={<Landing />} />
+          <Route path="local" element={<Connect4Local />} />
+          <Route path="lobby" element={<Connect4Multiplayer />} />
+      </Route>
+
   )
 );
 
