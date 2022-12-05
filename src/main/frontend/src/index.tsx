@@ -2,7 +2,8 @@ import "./index.css";
 
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { 
+import {
+  BrowserRouter,
   createBrowserRouter,
   createRoutesFromElements,
   Route,
@@ -16,20 +17,12 @@ import Connect4Local from "./components/Connect4Local/Connect4Local";
 import App from "./components/App/App";
 import Connect4Multiplayer from "./components/Connect4Multiplayer/Connect4Multiplayer";
 
-const router = createBrowserRouter(
-  createRoutesFromElements(
-      <Route path="/" element={<App />}>
-          <Route index element={<Landing />} />
-          <Route path="local" element={<Connect4Local />} />
-          <Route path="lobby" element={<Connect4Multiplayer />} />
-      </Route>
-
-  )
-);
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </React.StrictMode>
 );
 
