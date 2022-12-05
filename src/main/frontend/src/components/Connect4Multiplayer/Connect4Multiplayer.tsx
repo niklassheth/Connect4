@@ -4,6 +4,7 @@ import {useEffect, useState} from "react";
 import useWebSocket, { ReadyState } from 'react-use-websocket';
 import type { Move } from '../Board/Board'
 import type WebSocketEventMap from 'react-use-websocket';
+import {useUser} from "../UserProvider/UserProvider";
 
 function Connect4Multiplayer() {
 
@@ -14,6 +15,7 @@ function Connect4Multiplayer() {
       setMoves(moves);
     }
   });
+  const {user} = useUser();
   const [moves, setMoves] = useState<Move[]>([]);
   const handleMove = (move: Move): void => {
     console.log(move)
@@ -22,9 +24,8 @@ function Connect4Multiplayer() {
 
   return (
     <div className="Connect4">
-      <p>Which players turn?</p>
+      <p>{JSON.stringify(user)}</p>
       <Board cols={7} rows={6} moves={moves} initialColor={"red"} clickHandler={handleMove}></Board>
-      <p>Each players wins?</p>
     </div>
   );
 }

@@ -1,15 +1,15 @@
-import {useState} from "react";
+import {useContext, useState} from "react";
 import {useNavigate} from "react-router-dom";
+import {useUser} from "../UserProvider/UserProvider";
 
-function Signup({setUser}) {
+function Signup() {
     let [name, setName] = useState("");
+    const {user, newUser} = useUser();
     const navigate = useNavigate();
 
     const handleSignup = async () => {
-        const response = await fetch('http://localhost:8080/player', {method: 'POST', body: JSON.stringify({name}), headers: {'Content-Type': 'application/json'}}).then(x => x.json());
-        console.log(response);
-        setUser(response);
-        navigate("/local");
+        newUser(name);
+        navigate("/lobby");
     }
     return (
         <>

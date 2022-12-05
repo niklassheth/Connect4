@@ -4,18 +4,20 @@ import Connect4Local from "../Connect4Local/Connect4Local";
 import Connect4Multiplayer from "../Connect4Multiplayer/Connect4Multiplayer";
 import React, {useState} from "react";
 import Signup from "../Signup/Signup";
-
+import {UserProvider} from "../UserProvider/UserProvider";
+import RequireUser from "../RequireUser/RequireUser";
 
 function App() {
-    const [user, setUser] = useState(null);
 
     return (
-        <Routes>
-            <Route index element={<Landing />} />
-            <Route path="local" element={<Connect4Local/>} />
-            <Route path="signup" element={<Signup setUser={setUser}/>} />
-            <Route path="lobby" element={<Connect4Multiplayer />} />
-        </Routes>
+        <UserProvider>
+            <Routes>
+                <Route index element={<Landing />} />
+                <Route path="local" element={<Connect4Local/>} />
+                <Route path="signup" element={<Signup />} />
+                <Route path="lobby" element={<RequireUser> <Connect4Multiplayer /></RequireUser> } />
+            </Routes>
+        </UserProvider>
     );
 }
 
