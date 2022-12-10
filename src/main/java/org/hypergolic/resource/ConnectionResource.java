@@ -72,7 +72,7 @@ public class ConnectionResource {
             System.out.println("Sending data to " + k);
             try {
                 //Game g = Game.<Game>findById(game.id).await().indefinitely();
-                var moves = Move.<Move>find("game", Sort.ascending("moveNumber"), game).list().await().indefinitely();
+                var moves = Move.<Move>find("game", Sort.ascending("num"), game).list().await().indefinitely();
                 v.getAsyncRemote().sendText(mapper.writeValueAsString(moves));
             } catch (JsonProcessingException e) {
                 throw new RuntimeException(e);

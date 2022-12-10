@@ -8,7 +8,7 @@ function Signup() {
     const navigate = useNavigate();
 
     const handleSignup = async () => {
-        newUser(name);
+        await newUser(name);
         navigate("/lobby");
     }
     return (
