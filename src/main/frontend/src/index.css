@@ -2,3 +2,10 @@ body, html {
     margin: 0;
     padding: 0;
 }
+body {
+    background-image: linear-gradient(rgb(0, 68, 127), rgb(0, 20, 100) 35%);
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

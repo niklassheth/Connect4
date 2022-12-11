@@ -1,5 +1,6 @@
 import './Connect4.css';
 import Board from '../Board/Board';
+import Score from '../Score/Score';
 import {useState} from "react";
 import type { Move } from '../Board/Board'
 
@@ -11,9 +12,8 @@ function Connect4() {
 
   return (
     <div className="Connect4">
-      <p>Which players turn?</p>
+      <Score names={[ "Player 1", "Player 2" ]} scores={[ 0, 0 ]}></Score>
       <Board cols={7} rows={6} moves={moves} initialColor={"red"} clickHandler={handleMove}></Board>
-      <p>Each players wins?</p>
     </div>
   );
 }

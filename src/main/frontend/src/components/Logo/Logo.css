@@ -3,18 +3,30 @@
     display: flex;
     flex-direction: row;
     gap: 20px;
+
     color: white;
+
     font-size: 60px;
     font-family: 'SF Comic Script', sans-serif;
+
+    user-select: none;
 }
-.Logo > .Chip {
+.Logo > .Chip[data-row="-1"] {
     width: 70px;
     height: 70px;
     text-align: center;
 }
-.Logo > .Chip::before {
+.Logo > .Chip[data-row="-1"]::before {
     content: "4";
     position: relative;
     left: -5px;
     top: -3px;
 }
+/*
+.Logo > .Chip[data-row="-2"] {
+    position: relative;
+    left: -85px;
+    bottom: -1px;
+    z-index: -1;
+}
+*/

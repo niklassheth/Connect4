@@ -1,0 +1,12 @@
+#lobby-browser {
+    background-color: rgba(0, 0, 0, 80%);
+    padding: 10px;
+
+    display: flex;
+    gap: 10px;
+
+    width: 90vw;
+    height: 90vh;
+
+    border-radius: 5px;
+}

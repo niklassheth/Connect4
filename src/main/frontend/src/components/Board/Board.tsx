@@ -3,7 +3,7 @@ import Column from "../Column/Column";
 import Chip from "../Chip/Chip";
 
 type Color = "red" | "yellow";
-type ChipState = Color | "white";
+type ChipState = Color | "whitesmoke";
 
 type Move = {
     num: number,
@@ -20,11 +20,11 @@ type BoardProps = {
 
 function Board(props: BoardProps) {
     function drawBoard(moves: Move[], initialColor: Color) : ChipState[][] {
-        let board: ChipState[][] = Array(props.cols).fill('').map(() => Array(props.rows).fill("white"));
+        let board: ChipState[][] = Array(props.cols).fill('').map(() => Array(props.rows).fill("whitesmoke"));
         const colors: Color[] = [initialColor, initialColor === "red" ? "yellow" : "red"];
         moves.forEach(move => {
             let col = board[move.col];
-            col[col.lastIndexOf('white')] = colors[move.num % 2];
+            col[col.lastIndexOf('whitesmoke')] = colors[move.num % 2];
         });
         return board;
     }

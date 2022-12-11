@@ -9,16 +9,20 @@ import {
   RouterProvider
 } from 'react-router-dom';
 
-import Landing from './components/Landing/Landing';
+import Landing from "./App";
 import Connect4 from './components/Connect4/Connect4';
 import reportWebVitals from './reportWebVitals';
+import Register from "./components/Register/Register";
+import Lobby from "./components/Lobby/Lobby";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    //this doesn't seem correct; Landing page should be the top Route but the children weren't rendering so...
+    //this doesn't seem correct; Landing page should be the top Route but the children weren't rendering when done so...
     <Route>
       <Route path="/" element={<Landing />} />
       <Route path="/local" element={<Connect4 />} />
+      <Route path="/signup" element={<Register />} />
+      <Route path="/lobby" element={<Lobby />} />
     </Route>
   )
 );

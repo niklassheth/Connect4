@@ -1,5 +1,5 @@
 :root {
-    --board-color: rgb(0, 31, 206);
+    --board-color: dodgerblue /*rgb(0, 31, 206)*/;
     --board-cols: 7;
     --board-rows: 6;
     --board-gaps: 15px;
@@ -19,4 +19,6 @@
     padding: 15px;
     /*here because the chips dont seem to fit*/
     padding-right: 17px;
+
+    margin-bottom: 30px;
 }
