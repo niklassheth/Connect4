@@ -1,9 +1,9 @@
-#Register {
+#Signup {
     display: flex;
     align-items: center;
     justify-content: center;
 }
-#Register > form {
+#Signup > form {
     background-color: var(--board-color);
 
     padding: 20px;
@@ -16,7 +16,7 @@
 
     text-align: center;
 }
-#Register > form > label {
+#Signup > form > label {
     color: white;
 
     font-size: x-large;

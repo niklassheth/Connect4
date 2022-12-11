@@ -2,34 +2,15 @@ import "./index.css";
 
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { 
-  createBrowserRouter,
-  createRoutesFromElements,
-  Route,
-  RouterProvider
-} from 'react-router-dom';
-
-import Landing from "./App";
-import Connect4 from './components/Connect4/Connect4';
+import { BrowserRouter } from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
-import Register from "./components/Register/Register";
-import Lobby from "./components/Lobby/Lobby";
-
-const router = createBrowserRouter(
-  createRoutesFromElements(
-    //this doesn't seem correct; Landing page should be the top Route but the children weren't rendering when done so...
-    <Route>
-      <Route path="/" element={<Landing />} />
-      <Route path="/local" element={<Connect4 />} />
-      <Route path="/signup" element={<Register />} />
-      <Route path="/lobby" element={<Lobby />} />
-    </Route>
-  )
-);
+import App from "./components/App/App";
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </React.StrictMode>
 );
 
