@@ -14,7 +14,7 @@ export function UserProvider({children}) {
         if (user) {
             setUser(user);
         }
-    });
+    }, []);
 
     const newUser = async name => {
         const response = await fetch('http://localhost:8080/player',{
