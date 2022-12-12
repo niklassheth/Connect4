@@ -3,7 +3,7 @@
     align-items: center;
     justify-content: center;
 }
-#Signup > form {
+#Signup > div {
     background-color: var(--board-color);
 
     padding: 20px;
@@ -16,7 +16,7 @@
 
     text-align: center;
 }
-#Signup > form > label {
+#Signup > div > label {
     color: white;
 
     font-size: x-large;

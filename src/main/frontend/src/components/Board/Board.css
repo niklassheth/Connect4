@@ -3,7 +3,7 @@
     --board-cols: 7;
     --board-rows: 6;
     --board-gaps: 15px;
-    --chip-size: 70px;
+    --chip-size: 60px;
     --chip-amt: calc(var(--board-cols) * var(--board-rows));
 }
 .Board {

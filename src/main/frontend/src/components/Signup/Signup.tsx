@@ -26,7 +26,7 @@ function Signup() {
 
     return (
         <div id="Signup">
-            <form autoComplete="off">
+            <div>
                 <label htmlFor="username">What is your name?</label>
                 <input type="text" id="uid" name="username" placeholder="Name" onChange={handleInput}></input>
                 <button
@@ -38,7 +38,7 @@ function Signup() {
                 >
                     Continue
                 </button>
-            </form>
+            </div>
         </div>
     );
 }
