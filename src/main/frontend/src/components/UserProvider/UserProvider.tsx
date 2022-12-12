@@ -10,11 +10,11 @@ export function UserProvider({children}) {
     const [ user, setUser ] = useState(null);
 
     useEffect(() => {
-        const user = JSON.parse(localStorage.getItem('user'));
-        if (user) {
-            setUser(user);
+        const auth = JSON.parse(localStorage.getItem('user'));
+        if (auth && !user) {
+            setUser(auth);
         }
-    }, []);
+    }, [ user ]);
 
     const newUser = async name => {
         const response = await fetch('http://localhost:8080/player',{
