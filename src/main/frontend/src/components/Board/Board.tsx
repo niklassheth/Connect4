@@ -1,4 +1,4 @@
-import './Board.css';
+import "./Board.css";
 import Column from "../Column/Column";
 import Chip from "../Chip/Chip";
 
@@ -20,19 +20,28 @@ type BoardProps = {
 
 function Board(props: BoardProps) {
     function drawBoard(moves: Move[], initialColor: Color) : ChipState[][] {
-        let board: ChipState[][] = Array(props.cols).fill('').map(() => Array(props.rows).fill("whitesmoke"));
-        const colors: Color[] = [initialColor, initialColor === "red" ? "yellow" : "red"];
+        // creates a 2D array and fills the inner arrays with "white chips"
+        let board: ChipState[][] = Array(props.cols).fill("").map(() => Array(props.rows).fill("whitesmoke"));
+
+        const colors: Color[] = [ initialColor, initialColor === "red" ? "yellow" : "red" ];
+
+        // moves is coming in from the server; for each move, set the correct color
+        // the initial color will be the evens, the other color will be the odds
         moves.forEach(move => {
             let col = board[move.col];
-            col[col.lastIndexOf('whitesmoke')] = colors[move.num % 2];
+            col[col.lastIndexOf("whitesmoke")] = colors[move.num % 2];
         });
+
         return board;
     }
 
     function handlePlaced(tar: EventTarget & Element) {
-        const col = parseInt(tar.getAttribute('data-col'));
-        if (props.moves.filter(m => m.col === col).length >= 6)
+        const col = parseInt(tar.getAttribute("data-col"));
+
+        if (props.moves.filter(m => m.col === col).length >= 6) {
             return;
+        }
+
         props.clickHandler({num: props.moves.length, col: col});
     }
 
@@ -40,7 +49,7 @@ function Board(props: BoardProps) {
         <main className="Board" data-s={props.cols*props.rows} data-w={props.cols} data-h={props.rows}>
             {drawBoard(props.moves, props.initialColor).map((column, i) =>
                 <Column key={`c${i}`} col={i} handlePlaced={handlePlaced}>
-                    {column.map((chip, j) => <Chip key={`c${i}r${j}`} row={j} color={chip}/>)}
+                    {column.map((chip, j) => <Chip key={`c${i}r${j}`} row={j} color={chip} />)}
                 </Column>
             )}
         </main>
@@ -48,4 +57,4 @@ function Board(props: BoardProps) {
 }
 
 export default Board;
-export type {Move};
+export type { Move };

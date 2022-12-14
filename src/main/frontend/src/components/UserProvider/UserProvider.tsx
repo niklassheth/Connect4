@@ -7,24 +7,24 @@ export const useUser = () => {
 }
 
 export function UserProvider({children}) {
-    const [ user, setUser ] = useState(null);
+    const [ user, setUser ] = useState<string | null>(null);
 
     useEffect(() => {
-        const auth = JSON.parse(localStorage.getItem('user'));
+        const auth = JSON.parse(localStorage.getItem("user"));
         if (auth && !user) {
             setUser(auth);
         }
     }, [ user ]);
 
     const newUser = async name => {
-        const response = await fetch('http://localhost:8080/player',{
-            method: 'POST',
+        const response = await fetch("http://localhost:8080/player",{
+            method: "POST",
             body: JSON.stringify({ name }),
-            headers: { 'Content-Type': 'application/json' }
+            headers: { "Content-Type": "application/json" }
         });
         let auth = await response.json();
         setUser(auth);
-        localStorage.setItem('user', JSON.stringify(auth));
+        localStorage.setItem("user", JSON.stringify(auth));
         return user;
     }
 

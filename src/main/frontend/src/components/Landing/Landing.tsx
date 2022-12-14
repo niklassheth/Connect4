@@ -1,6 +1,6 @@
 import "./Landing.css";
 import Logo from "../Logo/Logo";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 const Landing = () => (
     <main className="home">

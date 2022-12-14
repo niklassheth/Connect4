@@ -4,14 +4,26 @@ import { useNavigate } from "react-router-dom";
 import { useUser } from "../UserProvider/UserProvider";
 
 function Signup() {
+
+    // these first 2 states are mainly for doing some basic input validation
     let [ name, setName ] = useState("");
     let [ valid, setValid ] = useState(false);
-    const { user, newUser } = useUser();
+
+    // newUser will be used to send a valid username to the server and assign them a unique object to
+    // put in the browsers local storage
+    const { /*user,*/ newUser } = useUser();
+
+    // for redirecting
     const navigate = useNavigate();
 
+    // as a user types in their name, the input will be validated
     const handleInput = (ev: ChangeEvent<HTMLInputElement>) => {
+
+        // trim HTML input for some basic validation
         let input = ev.target.value.trim();
+
         setValid(input.length > 0);
+
         if (valid) {
             setName(input);
         }
@@ -19,7 +31,10 @@ function Signup() {
 
     const handleSignup = async () => {
         if (valid) {
+            // will send the users name to the server and wait for a response
             await newUser(name);
+
+            // once a response is received and the user is created, send them to the lobby
             navigate("/lobby");
         }
     }
