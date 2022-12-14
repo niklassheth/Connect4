@@ -1,12 +1,14 @@
 import "./App.css";
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes } from "react-router-dom";
+import { UserProvider } from "../UserProvider/UserProvider";
 import Landing from "../Landing/Landing";
 import Connect4Local from "../Connect4Local/Connect4Local";
 import Connect4Multiplayer from "../Connect4Multiplayer/Connect4Multiplayer";
 import Signup from "../Signup/Signup";
-import { UserProvider } from "../UserProvider/UserProvider";
 import RequireUser from "../RequireUser/RequireUser";
 
+// this component is mainly for setting up all of our routes
+// All of these routes have access to the user state because they are children of the UserProvider context
 const App = () => (
     <UserProvider>
         <Routes>

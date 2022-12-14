@@ -7,7 +7,7 @@ type ScoreProps = {
 
 function Score(props: ScoreProps) {
     return (
-        <div className="Score">
+        <div className="Scoreboard">
             <div className="p0">
                 {props.names[0]}<br></br>
                 {props.scores[0]}
