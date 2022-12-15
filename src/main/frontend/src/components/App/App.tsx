@@ -17,6 +17,7 @@ const App = () => (
             <Route path="local" element={<Connect4Local />} />
             <Route path="signup" element={<Signup />} />
             <Route path="lobby" element={<RequireUser><Lobby /></RequireUser>} />
+            <Route path="multiplayer" element={<Connect4Multiplayer />}/>
         </Routes>
     </UserProvider>
 );

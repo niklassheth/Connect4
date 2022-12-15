@@ -12,20 +12,36 @@ function Lobby() {
         onMessage: (event) => {
             console.log(event.data);
             const data = JSON.parse(event.data);
-            setItems(data.filter(x => x.id != user.id));
+            if (data instanceof Array) {
+                //lobby data
+                setItems(data.filter(x => x.id != user.id));
+            }
+            else {
+                navigate("/multiplayer", {state: data})
+            }
         }
     });
     useEffect(() => {
         console.log(user);
         sendMessage(JSON.stringify(user));
     },[]);
+
+    const handleJoinGame = id => async () => {
+        const response = await fetch("http://localhost:8080/connection?" + new URLSearchParams({
+            thisId: user.id,
+            otherId: id
+        }), {
+            method: "POST"
+        });
+    }
+
     return (
         <div id="Lobby">
             <div id="lobby-browser">
                 {
                     items.length == 0 ? <p style={{color: "white"}}>No Players</p> : <></>
                 }
-                {items.map(({id, name}) => <button key={id} className="button-enabled" style={{width:"100%"}}>{name}</button>)}
+                {items.map(({id, name}) => <button key={id} onClick={handleJoinGame(id)} className="button-enabled" style={{width:"100%"}}>{name}</button>)}
             </div>
             <div>
                 

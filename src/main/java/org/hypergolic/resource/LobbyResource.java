@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.google.common.collect.Maps;
+import org.hypergolic.model.GameConnection;
 import org.hypergolic.model.Player;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -26,7 +27,7 @@ import java.util.stream.Collectors;
 @ApplicationScoped
 @ServerEndpoint("/lobby_socket/")
 public class LobbyResource {
-    Map<String, Player> sessions = new ConcurrentHashMap<>();
+    BiMap<Session, Player> sessions = Maps.synchronizedBiMap(HashBiMap.create());
 
     @OnOpen
     public void onOpen(Session session) {
@@ -38,7 +39,7 @@ public class LobbyResource {
         JsonMapper mapper = new JsonMapper();
         try {
             Player p = mapper.readValue(message, Player.class);
-            sessions.put(session.getId(), p);
+            sessions.put(session, p);
             refreshLobby(session.getOpenSessions());
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
@@ -47,7 +48,7 @@ public class LobbyResource {
 
     @OnClose
     public void onClose(Session session) {
-        sessions.remove(session.getId());
+        sessions.remove(session);
         refreshLobby(session.getOpenSessions());
     }
 
@@ -59,9 +60,19 @@ public class LobbyResource {
                     session.getAsyncRemote().sendText(mapper.writeValueAsString(sessions.values()));
                 } catch (JsonProcessingException e) {
                     throw new RuntimeException(e);
+
                 }
             }
         );
+    }
+
+    public void sendGameStart(GameConnection connection) {
+        JsonMapper mapper = new JsonMapper();
+        try {
+            sessions.inverse().get(connection.player).getAsyncRemote().sendText(mapper.writeValueAsString(connection));
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 
