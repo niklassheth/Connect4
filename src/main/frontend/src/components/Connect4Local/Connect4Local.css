@@ -27,3 +27,8 @@
   margin-top: 10px;
   margin-bottom: 30px;
 }
+@media (max-height: 700px) or (max-width: 700px) {
+  #Turn, #Over {
+    font-size: 45px;
+  }
+}

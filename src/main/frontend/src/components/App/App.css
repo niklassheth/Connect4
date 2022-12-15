@@ -24,3 +24,11 @@
 .button-disabled {
     background-color: rgb(139, 197, 255);
 }
+@media (max-height: 700px) or (max-width: 700px) {
+    .button-enabled {
+        min-width: 165px;
+        min-height: 30px;
+        max-height: 30px;
+        font-size: large;
+    }
+}
