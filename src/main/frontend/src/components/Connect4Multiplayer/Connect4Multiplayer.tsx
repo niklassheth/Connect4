@@ -5,7 +5,7 @@ import useWebSocket from "react-use-websocket";
 import type { Move } from "../Board/Board";
 import { useUser } from "../UserProvider/UserProvider";
 import Score from "../Score/Score";
-import { useLocation } from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 
 function Connect4Multiplayer() {
   let cols = 7, rows = 6, initialColor: Color = "red";
@@ -13,6 +13,7 @@ function Connect4Multiplayer() {
   const { user } = useUser();
   const [ moves, setMoves ] = useState<Move[]>([]);
   //const [ over, setOver ] = useState
+  const navigate = useNavigate();
 
   const location = useLocation();
 
@@ -47,9 +48,12 @@ function Connect4Multiplayer() {
       </p>
       <Board cols={cols} rows={rows} moves={moves} initialColor={initialColor} clickHandler={handleMove}></Board>
       <div className={"game-buttons"}>
+        <button className={"button-enabled"} onClick={() => navigate("/")}>Leave</button>
       </div>
     </div>
   );
+
+
 }
 
 export default Connect4Multiplayer;
