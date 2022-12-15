@@ -10,7 +10,7 @@ export function UserProvider({children}) {
     const [ user, setUser ] = useState<string | null>(null);
 
     useEffect(() => {
-        const auth = JSON.parse(sessionStorage.getItem("user"));
+        const auth = JSON.parse(localStorage.getItem("user"));
         if (auth && !user) {
             setUser(auth);
         }
@@ -25,7 +25,7 @@ export function UserProvider({children}) {
 
         let auth = await response.json();
         setUser(auth);
-        sessionStorage.setItem("user", JSON.stringify(auth));
+        localStorage.setItem("user", JSON.stringify(auth));
         return user;
     }
 
