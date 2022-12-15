@@ -1,3 +1,4 @@
+@import url('https://fonts.cdnfonts.com/css/sf-comic-script');
 .Connect4Local {
   /*background-color: rgb(184, 50, 50);*/
   /*background-image: url(http://www.designshock.com/wp-content/uploads/2015/02/sea.jpg);*/
@@ -10,4 +11,19 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+#Turn, #Over {
+  color: whitesmoke;
+  font-size: 60px;
+  font-family: 'SF Comic Script', sans-serif;
+
+  margin: 0;
+}
+.game-buttons {
+  display: flex;
+  flex-direction: row;
+  gap: 80px;
+
+  margin-top: 10px;
+  margin-bottom: 30px;
 }

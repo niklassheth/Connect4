@@ -57,4 +57,4 @@ function Board(props: BoardProps) {
 }
 
 export default Board;
-export type { Move };
+export type { Move, Color };
