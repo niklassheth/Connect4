@@ -2,7 +2,8 @@ package org.hypergolic.resource;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.json.JsonMapper;
-import io.quarkus.hibernate.reactive.panache.Panache;
+import io.quarkus.hibernate.orm.panache.Panache;
+import io.quarkus.narayana.jta.QuarkusTransaction;
 import io.quarkus.panache.common.Sort;
 import org.hypergolic.model.Game;
 import org.hypergolic.model.GameConnection;
@@ -28,7 +29,7 @@ public class SocketConnectionResource {
     @OnOpen
     public void onOpen(Session session, @PathParam("id") long id) {
         System.out.println(session.getId() + "Connected");
-        GameConnection connection = GameConnection.<GameConnection>findById(id).await().indefinitely();
+        GameConnection connection = GameConnection.<GameConnection>findById(id);
         sessions.put(session, connection);
     }
 
@@ -55,7 +56,9 @@ public class SocketConnectionResource {
         try {
             Move move = mapper.readValue(message, Move.class);
             move.game = game;
-            Panache.withTransaction(move::persist).await().indefinitely();
+            QuarkusTransaction.begin();
+            move.persist();
+            QuarkusTransaction.commit();
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
 
@@ -68,7 +71,7 @@ public class SocketConnectionResource {
             System.out.println("Sending data to " + k);
             try {
                 //Game g = Game.<Game>findById(game.id).await().indefinitely();
-                var moves = Move.<Move>find("game", Sort.ascending("num"), game).list().await().indefinitely();
+                var moves = Move.<Move>find("game", Sort.ascending("num"), game).list();
 
                 k.getAsyncRemote().sendText(mapper.writeValueAsString(moves));
             } catch (JsonProcessingException e) {

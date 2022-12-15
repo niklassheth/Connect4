@@ -14,7 +14,7 @@ function Lobby() {
             const data = JSON.parse(event.data);
             if (data instanceof Array) {
                 //lobby data
-                setItems(data.filter(x => x.id != user.id));
+                setItems(data);
             }
             else {
                 navigate("/multiplayer", {state: data})
@@ -39,9 +39,9 @@ function Lobby() {
         <div id="Lobby">
             <div id="lobby-browser">
                 {
-                    items.length == 0 ? <p style={{color: "white"}}>No Players</p> : <></>
+                    items.length == 1 ? <p style={{color: "white"}}>No Players</p> : <></>
                 }
-                {items.map(({id, name}) => <button key={id} onClick={handleJoinGame(id)} className="button-enabled" style={{width:"100%"}}>{name}</button>)}
+                {items.filter(x => x.id != user.id).map(({id, name}) => <button key={id} onClick={handleJoinGame(id)} className="button-enabled" style={{width:"100%"}}>{name}</button>)}
             </div>
             <div>
                 

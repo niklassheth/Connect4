@@ -1,13 +1,12 @@
 package org.hypergolic.resource;
 
-import io.quarkus.hibernate.reactive.panache.Panache;
 import io.smallrye.mutiny.Uni;
 import org.hypergolic.model.Player;
-import org.jboss.resteasy.reactive.RestResponse;
-import org.jboss.resteasy.reactive.RestResponse.ResponseBuilder;
 
+import javax.transaction.Transactional;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import java.net.URI;
 
 @Path("/player")
@@ -20,12 +19,11 @@ public class PlayerResource {
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public Uni<RestResponse<Player>> addPlayer(Player p) {
-        return Panache.<Player>withTransaction(p::persist)
-                .map(player -> (ResponseBuilder.<Player>created(URI.create("/player/" + player.id))
+    @Transactional
+    public Response addPlayer(Player p) {
+        p.persist();
+        return (Response.created(URI.create("/player/" + p.id))
                                 .entity(p)
-                                .build()
-                        )
-                );
+                                .build());
     }
 }
