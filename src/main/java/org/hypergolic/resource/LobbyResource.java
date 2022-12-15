@@ -27,20 +27,14 @@ import java.util.stream.Collectors;
 @ServerEndpoint("/lobby_socket/")
 public class LobbyResource {
     Map<String, Player> sessions = new ConcurrentHashMap<>();
-    Integer i = 1;
 
     @OnOpen
     public void onOpen(Session session) {
-        System.out.println("NUM: " + i);
     }
 
 
     @OnMessage
     public void onMessage(Session session, String message) {
-        System.out.println("MESSAGE: " + sessions.size());
-        System.out.println("NUM: " + i);
-        i++;
-
         JsonMapper mapper = new JsonMapper();
         try {
             Player p = mapper.readValue(message, Player.class);
@@ -53,7 +47,6 @@ public class LobbyResource {
 
     @OnClose
     public void onClose(Session session) {
-        System.out.println(i);
         sessions.remove(session.getId());
         refreshLobby(session.getOpenSessions());
     }
