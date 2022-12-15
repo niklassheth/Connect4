@@ -10,7 +10,7 @@ export default function RequireUser({ children }) {
 
         // users who have signed up should not be redirected to signup
         if (sessionStorage.getItem('user')) {
-            return <Navigate to="/" replace />;
+            return <Navigate to="/" state={{}} replace />;
         }
 
         return <Navigate to="/signup" replace />;

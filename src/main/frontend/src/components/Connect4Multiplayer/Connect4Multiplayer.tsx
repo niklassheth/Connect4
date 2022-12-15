@@ -25,7 +25,7 @@ function Connect4Multiplayer() {
       }
       //let moves = JSON.parse(event.data);
       console.log(data);
-      if (data instanceof Object) {
+      if (data instanceof Array) {
         setMoves(data);
       }
     },

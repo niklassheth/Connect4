@@ -13,7 +13,7 @@ import java.net.URI;
 public class PlayerResource {
     @GET
     @Path("{id: \\d+}")
-    public Uni<Player> getPlayerByID(@PathParam("id") long id) {
+    public Player getPlayerByID(@PathParam("id") long id) {
         return Player.findById(id);
     }
 
