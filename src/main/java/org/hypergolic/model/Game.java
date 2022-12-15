@@ -5,6 +5,7 @@ import io.quarkus.hibernate.reactive.panache.PanacheEntity;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import java.util.SortedSet;
 
@@ -19,4 +20,17 @@ public class Game extends PanacheEntity {
     @OrderBy("num ASC")
     public List<Move> moves;
 
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Game game)) return false;
+
+        return Objects.equals(id, game.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id.hashCode();
+    }
 }

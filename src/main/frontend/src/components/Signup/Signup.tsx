@@ -7,8 +7,7 @@ function Signup() {
 
     // these first 2 states are mainly for doing some basic input validation
     let [ name, setName ] = useState("");
-    let [ valid, setValid ] = useState(false);
-
+    const valid = name != "";
     // newUser will be used to send a valid username to the server and assign them a unique object to
     // put in the browsers local storage
     const { /*user,*/ newUser } = useUser();
@@ -22,11 +21,9 @@ function Signup() {
         // trim HTML input for some basic validation
         let input = ev.target.value.trim();
 
-        setValid(input.length > 0);
 
-        if (valid) {
-            setName(input);
-        }
+        setName(input);
+
     }
 
     const handleSignup = async () => {
