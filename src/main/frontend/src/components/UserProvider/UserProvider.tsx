@@ -22,6 +22,7 @@ export function UserProvider({children}) {
             body: JSON.stringify({ name }),
             headers: { "Content-Type": "application/json" }
         });
+
         let auth = await response.json();
         setUser(auth);
         sessionStorage.setItem("user", JSON.stringify(auth));

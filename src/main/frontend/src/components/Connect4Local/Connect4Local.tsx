@@ -4,50 +4,6 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import type { Move, Color } from "../Board/Board";
 
-/*
-function isConnect4(board: ChipState[][], moves: Move[]) {
-    let color = moves.length % 2 === 0 ? "red" : "yellow";
-
-    // horizontal
-    for (let col = 0; col < board.length - 3 ; ++col) {
-        for (let row = 0; row < board[0].length; ++row) {
-            if (board[col][row] === color && board[col+1][row] === color && board[col+2][row] === color && board[col+3][row] === color) {
-                return true;
-            }
-        }
-    }
-
-    // vertical=
-    for (let row = 0; row < board.length - 3 ; ++row) {
-        for (let col = 0; col < board[0].length; ++col) {
-            if (board[col][row] === color && board[col][row+1] === color && board[col][row+2] === color && board[col][row+3] === color) {
-                return true;
-            }
-        }
-    }
-
-    // ascending diagonal
-    for (let col = 3; col < board.length; ++col) {
-        for (let row = 0; row < board[0].length - 3; ++row) {
-            if (board[col][row] === color && board[col-1][row+1] === color && board[col-2][row+2] === color && board[col-3][row+3] === color) {
-                return true;
-            }
-        }
-    }
-
-    // descending diagonal
-    for (let col = 3; col < board.length; ++col) {
-        for (let row = 3; row < board[0].length; ++row) {
-            if (board[col][row] === color && board[col-1][row-1] === color && board[col-2][row-2] === color && board[col-3][row-3] === color) {
-                return true;
-            }
-        }
-    }
-
-    return false;
-}
-*/
-
 function Connect4Local() {
   let cols = 7, rows = 6, initialColor: Color = "red";
 
@@ -55,8 +11,11 @@ function Connect4Local() {
   const [ over, setOver ] = useState(false);
   const navigate = useNavigate();
 
+  // this fixed something
+  useEffect(() => setOver(isConnect4() || moves.length === cols * rows), [ moves ]);
+
   function isConnect4() {
-    let board = Array(7).fill("").map(() => Array(6).fill(""));
+    let board = Array(cols).fill("").map(() => Array(rows).fill(""));
 
     moves.forEach(move => {
       let col = board[move.col];
@@ -68,7 +27,8 @@ function Connect4Local() {
     // horizontal
     for (let col = 0; col < board.length - 3 ; ++col) {
       for (let row = 0; row < board[0].length; ++row) {
-        if (board[col][row] === color && board[col+1][row] === color && board[col+2][row] === color && board[col+3][row] === color) {return true;
+        if (board[col][row] === color && board[col+1][row] === color && board[col+2][row] === color && board[col+3][row] === color) {
+          return true;
         }
       }
     }
@@ -105,28 +65,7 @@ function Connect4Local() {
 
   const handleMove = (move: Move): void => {
     setMoves([ ...moves, move ]);
-    //setOver(isConnect4());
   };
-
-  // ok somehow this fixed it, let's gooo
-  useEffect(() => setOver(isConnect4() || moves.length === cols * rows), [ moves ]);
-
-  /*
-  //this does not fix it either
-  useEffect(() => {
-      console.log(moves);
-      // creates a 2D array and fills the inner arrays with "white chips"
-      let board: ChipState[][] = Array(cols).fill("").map(() => Array(rows).fill("whitesmoke"));
-      const colors: Color[] = [ initialColor, initialColor === "red" ? "yellow" : "red" ];
-
-      moves.forEach(move => {
-          let col = board[move.col];
-          col[col.lastIndexOf("whitesmoke")] = colors[move.num % 2];
-      });
-
-      setOver(isConnect4(board, moves));
-  }, [ moves ]);
-  */
 
   if (over) {
     return (

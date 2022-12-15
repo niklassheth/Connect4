@@ -1,7 +1,10 @@
 #Signup {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+
+    gap: 20px;
 }
 #Signup > div {
     background-color: var(--board-color);
@@ -25,4 +28,7 @@
 }
 #uid {
     min-width: 2px;
+}
+#signup-home {
+    background-color: var(--board-color);
 }

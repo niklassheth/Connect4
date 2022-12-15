@@ -47,11 +47,13 @@ function Board(props: BoardProps) {
 
     return (
         <main className="Board" data-s={props.cols*props.rows} data-w={props.cols} data-h={props.rows}>
-            {drawBoard(props.moves, props.initialColor).map((column, i) =>
-                <Column key={`c${i}`} col={i} handlePlaced={handlePlaced}>
-                    {column.map((chip, j) => <Chip key={`c${i}r${j}`} row={j} color={chip} />)}
-                </Column>
-            )}
+            {
+                drawBoard(props.moves, props.initialColor).map((column, i) =>
+                    <Column key={`c${i}`} col={i} handlePlaced={handlePlaced}>
+                        {column.map((chip, j) => <Chip key={`c${i}r${j}`} row={j} color={chip} />)}
+                    </Column>
+                )
+            }
         </main>
     );
 }

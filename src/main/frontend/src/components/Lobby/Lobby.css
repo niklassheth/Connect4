@@ -1,12 +1,23 @@
 #lobby-browser {
-    background-color: rgba(0, 0, 0, 80%);
-    padding: 10px;
-
     display: flex;
     gap: 10px;
     flex-direction: column;
+    align-items: center;
+
     width: 90vw;
-    height: 90vh;
+    height: 100vh;
 
     border-radius: 5px;
 }
+#empty-lobby, #lobby-instructions {
+    color: whitesmoke;
+    font-size: 60px;
+    font-family: 'SF Comic Script', sans-serif;
+
+    margin: 20px;
+}
+#lobby-browser > .button-enabled {
+    min-width: 300px;
+    max-width: 300px;
+}
+

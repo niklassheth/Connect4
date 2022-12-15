@@ -1,16 +1,20 @@
 import "./Lobby.css";
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import useWebSocket from "react-use-websocket";
-import {useNavigate} from "react-router-dom";
-import {useUser} from "../UserProvider/UserProvider";
+import { useNavigate } from "react-router-dom";
+import { useUser } from "../UserProvider/UserProvider";
+import { useLocation } from "react-router-dom";
 
 function Lobby() {
-    const [items, setItems] = useState([]);
-    const {user} = useUser();
+    const [ items, setItems ] = useState([]);
+    const { user } = useUser();
     const navigate = useNavigate();
+    const location = useLocation();
+
     const { sendMessage } = useWebSocket("ws://localhost:8080/lobby_socket/", {
+
         onMessage: (event) => {
-            console.log(event.data);
+            //console.log(event.data);
             const data = JSON.parse(event.data);
             if (data instanceof Array) {
                 //lobby data
@@ -20,9 +24,11 @@ function Lobby() {
                 navigate("/multiplayer", {state: data})
             }
         }
+
     });
+
     useEffect(() => {
-        console.log(user);
+        //console.log(user);
         sendMessage(JSON.stringify(user));
     },[]);
 
@@ -39,12 +45,18 @@ function Lobby() {
         <div id="Lobby">
             <div id="lobby-browser">
                 {
-                    items.length == 1 ? <p style={{color: "white"}}>No Players</p> : <></>
+                    location.state === "Disconnected"
+                      ? <p id={"lobby-instructions"}> Other player left</p>
+                      : items.length === 1
+                        ? <p id={"empty-lobby"}>Currently No Players</p>
+                        : <p id={"lobby-instructions"}>Click on a name below to play</p>
                 }
-                {items.filter(x => x.id != user.id).map(({id, name}) => <button key={id} onClick={handleJoinGame(id)} className="button-enabled" style={{width:"100%"}}>{name}</button>)}
-            </div>
-            <div>
-                
+                <button className={"button-enabled"} onClick={() => navigate("/")}>Go back</button>
+                {
+                    items.filter(x => x.id != user.id).map(({id, name}) => {
+                        return <button key={id} onClick={handleJoinGame(id)} className="button-enabled">{name}</button>
+                    })
+                }
             </div>
         </div>
     );

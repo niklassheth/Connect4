@@ -37,13 +37,19 @@ function Signup() {
         }
     }
 
+    function handleEnter(ev) {
+        //if (ev.key)
+        console.log(ev.keyCode);
+    }
+
     return (
         <div id="Signup">
             <div>
                 <label htmlFor="username">What is your name?</label>
-                <input type="text" id="uid" name="username" placeholder="Name" onChange={handleInput} autoComplete={"off"}></input>
+                <input type="text" id="uid" name="username" placeholder="Name" onChange={handleInput} autoComplete={"off"} autoFocus={true}></input>
                 <button
                 onClick={handleSignup}
+                onKeyPress={handleEnter}
                 type="submit"
                 className={valid ? "button-enabled" : "button-disabled"}
                 disabled={!valid}
@@ -52,6 +58,7 @@ function Signup() {
                     Continue
                 </button>
             </div>
+            <button className={"button-enabled"} style={{backgroundColor: "dodgerblue"}} onClick={() => navigate("/")}>Go back</button>
         </div>
     );
 }
