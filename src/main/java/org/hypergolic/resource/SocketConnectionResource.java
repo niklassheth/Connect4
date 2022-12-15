@@ -17,6 +17,7 @@ import javax.ws.rs.BadRequestException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 
 
 @ServerEndpoint("/socket_connection/{id}")
@@ -39,6 +40,11 @@ public class SocketConnectionResource {
     @OnClose
     public void onClose(Session session, @PathParam("id") int id) {
         System.out.println(session.getId() + " Closed");
+        //var connectionSet = sessions.get(session).game.connectionSet;
+        var connections = GameConnection.find("game", sessions.get(session).game).list();
+        sessions.entrySet().stream()
+                    .filter(sess -> connections.contains(sess.getValue()))
+                            .forEach(x -> x.getKey().getAsyncRemote().sendText("\"CLOSE\""));
         sessions.remove(session);
     }
 
@@ -55,6 +61,10 @@ public class SocketConnectionResource {
         Game game = sessions.get(session).game;
         try {
             Move move = mapper.readValue(message, Move.class);
+            if (!validateNewMove(game, move)) {
+                System.out.println("INVALID MOVE");
+                return;
+            }
             move.game = game;
             QuarkusTransaction.begin();
             move.persist();
@@ -70,7 +80,6 @@ public class SocketConnectionResource {
             var v = pair.getValue();
             System.out.println("Sending data to " + k);
             try {
-                //Game g = Game.<Game>findById(game.id).await().indefinitely();
                 var moves = Move.<Move>find("game", Sort.ascending("num"), game).list();
 
                 k.getAsyncRemote().sendText(mapper.writeValueAsString(moves));
@@ -82,15 +91,16 @@ public class SocketConnectionResource {
     }
 
     private boolean validateNewMove(Game g, Move m) {
+        var moves = Move.<Move>find("game", Sort.ascending("num"), g).list();
         if (m.col < 0 || m.col > 6)
             return false;
-        if (g.moves.size() == 0) {
+        if (moves.size() == 0) {
             if (m.num != 0) {
                 return false;
             }
         }
         else {
-            Move lastMove = g.moves.get(g.moves.size() - 1);
+            Move lastMove = moves.get(moves.size() - 1);
             if (m.num - lastMove.num != 1) {
                 return false;
             }
