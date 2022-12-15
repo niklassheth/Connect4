@@ -1,7 +1,7 @@
 import "./Connect4Local.css";
 import Board from "../Board/Board";
 import { useEffect, useState } from "react";
-import { useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import type { Move, Color } from "../Board/Board";
 
 /*
@@ -132,7 +132,7 @@ function Connect4Local() {
     return (
       <div className="Connect4Local">
         {
-          moves.length === cols * rows
+          !isConnect4() && moves.length === cols * rows
             ? <p id={"Over"}>Draw</p>
             : <p id={"Over"}>{moves.length % 2 !== 0 ? "Red" : "Yellow"} Wins!</p>
         }

@@ -8,6 +8,7 @@ function Signup() {
     // these first 2 states are mainly for doing some basic input validation
     let [ name, setName ] = useState("");
     const valid = name != "";
+
     // newUser will be used to send a valid username to the server and assign them a unique object to
     // put in the browsers local storage
     const { /*user,*/ newUser } = useUser();
@@ -40,7 +41,7 @@ function Signup() {
         <div id="Signup">
             <div>
                 <label htmlFor="username">What is your name?</label>
-                <input type="text" id="uid" name="username" placeholder="Name" onChange={handleInput}></input>
+                <input type="text" id="uid" name="username" placeholder="Name" onChange={handleInput} autoComplete={"off"}></input>
                 <button
                 onClick={handleSignup}
                 type="submit"
