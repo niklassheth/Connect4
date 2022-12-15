@@ -23,3 +23,16 @@
     margin-top: 50px;
     margin-bottom: 50px;
 }
+@media (max-height: 700px) or (max-width: 700px) {
+    :root {
+        --board-gaps: 10px;
+        --chip-size: 45px;
+    }
+    .Board {
+        padding: 12px;
+        padding-right: 14px;
+
+        margin-top: 30px;
+        margin-bottom: 30px;
+    }
+}
